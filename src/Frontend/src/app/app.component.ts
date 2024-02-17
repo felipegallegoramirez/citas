@@ -11,16 +11,6 @@ export class AppComponent {
 
   constructor(private router: Router) {}
   ngOnInit() {
-    this.router.events.subscribe((event) => {
-      if (event instanceof NavigationEnd) {
-        if (event.url != '/#/aboutus' && event.url != '/#/login') {
-          let x = localStorage.getItem('id');
-          if (!x) {
-            window.location.replace('http://localhost:4200/#/login');
-          }
-        }
-      }
-    });
   }
 
   ocultar() {
