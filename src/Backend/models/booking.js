@@ -3,34 +3,30 @@ const mongoose = require("mongoose");
 //const mongoosePaginateAggregate = require("mongoose-aggregate-paginate-v2");
 const StorageScheme = new mongoose.Schema(
   {
-    email: {
+    profesional: {
       type: String,
       required: true,
-      unique: true,
-      trim: true
     },
-    name: {
+    service: {
       type: String,
+      required: true,
+    },
+    user: {
+      type: String,
+      required: true,
+    },
+    day: {
+      type: Number,
+      required: true,
+    },
+    month: {
+      type: Number,
       require: true
     },
-    rol: {
-      type: String,
+    hour: {
+      type: Number,
       require: true
     },
-    bloq:[{
-      day:[{
-        type: Number,
-        require: true
-      }]
-    }],
-    services:[{
-      type: String,
-      require: true
-    }],
-    booking:[{
-      type: String,
-      require: true
-    }]
 
   },
 
@@ -41,4 +37,4 @@ const StorageScheme = new mongoose.Schema(
   }
 );
 
-module.exports = mongoose.models.Users || mongoose.model("Users", StorageScheme);
+module.exports = mongoose.models.Booking || mongoose.model("Booking", StorageScheme);

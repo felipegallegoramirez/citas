@@ -15,9 +15,9 @@ UserCtrl.getUsers = async (req, res, next) => {
 
 UserCtrl.createUser = async (req, res, next) => {
     try{
-        const { email, password, dni, name, phone, mechanic} = req.body;
+        const { email, name, bloq, services,booking} = req.body;
 
-        const body = { email, password, dni, name, phone, mechanic};
+        const body = { email, name, bloq, services,booking};
         var save= await User.create(body);
         res.status(200).send(save)
     }catch(err){
@@ -56,26 +56,6 @@ UserCtrl.deleteUser = async (req, res, next) => {
         res.json({ status: "User Deleted" });
     }catch(err){
         res.status(400).send(err)
-    }
-};
-
-UserCtrl.LoginUser = async (req, res, next) => {
-    try{
-        const { email, password} = req.body;
-        const body = { email, password};
-        console.log(body)
-        var user = await User.findOne({ email: body.email });
-        if(user.password==body.password){
-            res.status(200).send(user)
-        }else{
-            error={
-                status:"Contraseña incorrecta"
-            }
-            res.status(400).send(error)
-        }
-    }catch(err){
-        res.status(400).send(err)
-
     }
 };
 
