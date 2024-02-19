@@ -13,6 +13,19 @@ UserCtrl.getUsers = async (req, res, next) => {
     }
 };
 
+
+UserCtrl.getUsersService = async (req, res, next) => {
+    try{
+        const save = await User.find();
+        const { id } = req.params;
+        let fil = save.filter((x)=>{x.services.includes(id)})
+        res.status(200).send(fil)
+    }catch(err){
+        res.status(400).send(err)
+
+    }
+};
+
 UserCtrl.createUser = async (req, res, next) => {
     try{
         const { email, name, bloq, services,booking,profresion} = req.body;

@@ -2,19 +2,13 @@
     <div class="service">
       <h1>Selecionar servicios</h1>
 
-        <div class="card_service select">
-            <p>Asesoria</p>
-            <p>1h</p>
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Provident temporibus quos, dolore alias neque sapiente iusto quibusdam?</p>
-            <p>18.000 COP</p>
+        <div *ngFor="let service of services;index as i;" class="card_service" (click)="select(i)">
+            <p>{{service.name}}</p>
+            <p>{{service.time}}H</p>
+            <p>{{service.description}}</p>
+            <p>{{service.price}} COP</p>
         </div>
 
-        <div class="card_service">
-            <p>Asesoria</p>
-            <p>1h</p>
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Provident temporibus quos, dolore alias neque sapiente iusto quibusdam?</p>
-            <p>18.000 COP</p>
-        </div>
     </div>
 
     <div class="sumary">
@@ -56,7 +50,7 @@
         <div></div>
       </div>
       <div class="sumary_bottom">
-          <button>Continuar</button>
+          <button (click)="next()">Continuar</button>
         </div>
     </div>
   

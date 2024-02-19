@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { User } from 'src/app/models/user';
+import { UserService } from 'src/app/services/user.service';
+
 
 @Component({
   selector: 'app-profesional',
@@ -7,9 +10,10 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ProfesionalComponent implements OnInit {
 
-  constructor() { }
+  constructor(private userService:UserService) { }
 
   ngOnInit(): void {
+
   }
 
 }

@@ -25,7 +25,10 @@ export class UserService {
   }
 
   getUser(id:string) {
-    return this.http.get<User>(this.URL_API + `/${id}` );
+    return this.http.get<User>(this.URL_API + `unique/${id}` );
+  }
+  getUserService(id:string) {
+    return this.http.get<User[]>(this.URL_API + `/service/${id}` );
   }
 
   putUser(user: User,id:string) {
