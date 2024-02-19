@@ -1,4 +1,4 @@
-export class User {
+export class Booking {
   _id?: string;
   profesional: string;
   service: string;

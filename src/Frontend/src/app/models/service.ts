@@ -1,4 +1,4 @@
-export class User {
+export class Service {
   _id?: string;
   name: string;
   time: Number;
