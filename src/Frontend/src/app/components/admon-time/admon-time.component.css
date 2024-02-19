@@ -21,12 +21,11 @@
 
 .days{
     width: 100%;
-
-    overflow-x: scroll;
 }
 .days>div{
     display: flex;
-    width: max-content;
+    width: 100%;
+    justify-content: center;
 }
 
 .days__day{

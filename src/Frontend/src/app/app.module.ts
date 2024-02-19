@@ -8,6 +8,9 @@ import { ProfesionalComponent } from './components/profesional/profesional.compo
 import { TimeComponent } from './components/time/time.component';
 import { ServicesComponent } from './components/services/services.component';
 import { AdmonTimeComponent } from './components/admon-time/admon-time.component';
+import { ListTimeComponent } from './components/list-time/list-time.component';
+import { CalendarComponent } from './components/calendar/calendar.component';
+import { ConfirmComponent } from './components/confirm/confirm.component';
 
 
 
@@ -29,6 +32,9 @@ const routes: Routes = [
     TimeComponent,
     ServicesComponent,
     AdmonTimeComponent,
+    ListTimeComponent,
+    CalendarComponent,
+    ConfirmComponent,
   ],
   imports: [
     BrowserModule,

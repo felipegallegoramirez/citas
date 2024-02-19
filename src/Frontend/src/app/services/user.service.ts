@@ -10,15 +10,10 @@ export class UserService {
   selectedUser: User;
   users: User[] = [];
   readonly URL_API = "http://localhost:3000/api/user";
-  readonly URL_API_login = "http://localhost:3000/api/login";
 
 
   constructor(private http: HttpClient) {
     this.selectedUser = new User();
-  }
-
-  Login(user: User) {
-    return this.http.post<User>(this.URL_API_login, user);
   }
 
   postUser(user: User) {
