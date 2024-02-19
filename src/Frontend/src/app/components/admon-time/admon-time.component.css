@@ -7,7 +7,7 @@
     box-sizing: border-box;
 }
 .time{
-    width: 65%;
+    width: 100%;
 }
 
 .date{
@@ -177,3 +177,5 @@ button{
 .hours_card.negative{
     outline: 2px solid var(--r);
 }
+
+
