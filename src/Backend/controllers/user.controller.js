@@ -15,9 +15,9 @@ UserCtrl.getUsers = async (req, res, next) => {
 
 UserCtrl.createUser = async (req, res, next) => {
     try{
-        const { email, name, bloq, services,booking} = req.body;
+        const { email, name, bloq, services,booking,profresion} = req.body;
 
-        const body = { email, name, bloq, services,booking};
+        const body = { email, name, bloq, services,booking,profresion};
         var save= await User.create(body);
         res.status(200).send(save)
     }catch(err){

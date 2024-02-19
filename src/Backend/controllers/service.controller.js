@@ -15,9 +15,9 @@ ServiceCtrl.getServices = async (req, res, next) => {
 
 ServiceCtrl.createService = async (req, res, next) => {
     try{
-        const { name, time} = req.body;
+        const { name, time,description,price} = req.body;
 
-        const body = {name, time};
+        const body = {name, time,description,price};
         var save= await Service.create(body);
         res.status(200).send(save)
     }catch(err){

@@ -3,6 +3,7 @@ export class User {
   email: string;
   name: string;
   rol: string;
+  profresion:string;
   bloq: Array<{
     day:Array<Number>
   }>;
@@ -15,6 +16,7 @@ export class User {
     email: string = "",
     name: string = "",
     rol: string = "",
+    profresion: string = "",
     bloq:Array<{
       day:Array<Number>
     }> =[],
@@ -25,6 +27,7 @@ export class User {
     this.email = email;
     this.name = name;
     this.rol = rol;
+    this.profresion = profresion;
     this.bloq = bloq;
     this.services = services;
     this.booking = booking;

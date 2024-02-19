@@ -17,6 +17,10 @@ const StorageScheme = new mongoose.Schema(
       type: String,
       require: true
     },
+    profresion: {
+      type: String,
+      require: true
+    },
     bloq:[{
       day:[{
         type: Number,
