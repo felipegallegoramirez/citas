@@ -2,23 +2,19 @@
   <div class="profesional">
     <h1>Selecionar profesional</h1>
     <div class="profesional_grid">
-      <div class="card_profesional select">
+      <div (click)="default()" class="card_profesional">
         <span class="material-symbols-outlined">group</span>
         <p>Cualquier Profesional</p>
         <p>Para maxima disponibilidad</p>
       </div>
 
-      <div class="card_profesional">
+      <div *ngFor="let profesional of profesionals;index as i;" (click)="select(i)"  class="card_profesional">
         <img src="https://www.w3schools.com/howto/img_avatar.png" alt="">
-        <p>Felipe Gallego</p>
-        <p>Programador</p>
+        <p>{{profesional.name}}</p>
+        <p>{{profesional.profresion}}</p>
       </div>
 
-      <div class="card_profesional">
-        <img src="https://www.w3schools.com/howto/img_avatar.png" alt="">
-        <p>Felipe Gallego</p>
-        <p>Programador</p>
-      </div>
+
     </div>
   </div>
 
@@ -61,7 +57,7 @@
       <div></div>
     </div>
     <div class="sumary_bottom">
-        <button>Continuar</button>
+        <button (click)="next()">Continuar</button>
       </div>
   </div>
 

@@ -18,7 +18,8 @@ UserCtrl.getUsersService = async (req, res, next) => {
     try{
         const save = await User.find();
         const { id } = req.params;
-        let fil = save.filter((x)=>{x.services.includes(id)})
+        let fil = save.filter((x)=>x.services.includes(id))
+        console.log()
         res.status(200).send(fil)
     }catch(err){
         res.status(400).send(err)
