@@ -5,7 +5,7 @@ export class Booking {
   user: string;
   day: Number;
   month: Number;
-  hour: Number;
+  hour: number;
 
   constructor(
     _id :string = "",

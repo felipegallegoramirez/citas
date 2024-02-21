@@ -24,12 +24,16 @@ export class BookingService {
     return this.http.get<Booking[]>(this.URL_API);
   }
 
-  getBookingDay(day:number,month:number) {
-    return this.http.get<any>(this.URL_API + `/${day}/${month}`);
+  getBookingDay(day:number,month:number,service:string,profesional:string) {
+    return this.http.get<any>(this.URL_API + `/reserve/${day}/${month}/${service}/${profesional}`);
+  }
+
+  getBookingDayPersonal(day:number,month:number,me:string) {
+    return this.http.get<any>(this.URL_API + `/personal/${day}/${month}/${me}`);
   }
 
   getBooking(id:string) {
-    return this.http.get<Booking>(this.URL_API + `/${id}` );
+    return this.http.get<Booking>(this.URL_API + `/one/${id}` );
   }
 
   putBooking(booking: Booking,id:string) {

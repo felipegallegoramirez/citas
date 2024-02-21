@@ -16,8 +16,6 @@ BookingCtrl.getBookings = async (req, res, next) => {
 BookingCtrl.createBooking = async (req, res, next) => {
     try{
         const { profesional, service, day, month,hour,user} = req.body;
-
-
         const body = { profesional, service, day, month,hour,user};
         console.log(body)
         var save= await Booking.create(body);
@@ -30,10 +28,30 @@ BookingCtrl.createBooking = async (req, res, next) => {
 
 BookingCtrl.getBookingDay = async (req, res, next) => {
     try{
-        const { day,month } = req.params;
-        const save = await Booking.find({day:day,month:month});
-        const re= save.map(x=>x["hour"])
-        res.status(200).send(re)
+        const { day,month,service,profesional } = req.params;
+        if(profesional=="any"){
+            console.log("any")
+            const save = await Booking.find({day:day,month:month,service:service});
+            const re= save.map(x=>({id:x["profesional"],hour:x["hour"]}))
+            res.status(200).send(re)
+        }
+        else{
+                const save = await Booking.find({day:day,month:month,service:service,profesional:profesional});
+                const re= save.map(x=>({id:x["profesional"],hour:x["hour"]}))
+                res.status(200).send(re)
+        }
+    }catch(err){
+        res.status(400).send(err)
+
+    }
+};
+
+BookingCtrl.getBookingDayPersonal = async (req, res, next) => {
+    try{
+            const { day,month,me } = req.params;
+            const save = await Booking.find({day:day,month:month,$or:[{ user: me },{ profesional: me }]});
+            const re=save.map(x=>({id:x["profesional"],hour:x["hour"]}))
+            res.status(200).send(re)
     }catch(err){
         res.status(400).send(err)
 

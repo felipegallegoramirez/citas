@@ -177,10 +177,22 @@ export class TimeComponent implements OnInit {
         }
     }
 
-    this.bookingService.getBookingDay(y.dia,y.mes).subscribe(res=>{
-      let data= res as Array<number>
-      for(let i =0;i<data.length;i++){
-        let index= this.hours.indexOf(data[i])
+    this.bookingService.getBookingDay(y.dia,y.mes,localStorage.getItem("service_id")||"",localStorage.getItem("Profresional_id")||"").subscribe(res=>{
+      console.log(res)
+      let data= res as Array<{id:string,hour:number}>
+      let datan=data.map(x=>x["id"])
+      let datan2=data.map(x=>x["hour"])
+      let countS=new Set(datan)
+      let countS2=new Set(datan2)
+
+      let count=countS.size
+      let ndata=Array.from(countS2)
+      ndata=ndata.filter(x=>data.filter(y=>y.hour==x).length>=count)
+      console.log(ndata)
+
+
+      for(let i =0;i<ndata.length;i++){
+        let index= this.hours.indexOf(ndata[i])
         if(index!=-1){
           this.hours.splice(index,1)
         }
