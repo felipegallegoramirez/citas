@@ -5,7 +5,7 @@ export class User {
   rol: string;
   profresion:string;
   bloq: Array<{
-    day:Array<Number>
+    day:Array<number>
   }>;
   services:Array<string>;
   booking:Array<string>;
@@ -18,7 +18,7 @@ export class User {
     rol: string = "",
     profresion: string = "",
     bloq:Array<{
-      day:Array<Number>
+      day:Array<number>
     }> =[],
     services: Array<string> = [],
     booking: Array<string> = [],

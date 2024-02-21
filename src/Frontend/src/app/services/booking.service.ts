@@ -24,6 +24,10 @@ export class BookingService {
     return this.http.get<Booking[]>(this.URL_API);
   }
 
+  getBookingDay(day:number,month:number) {
+    return this.http.get<any>(this.URL_API + `/${day}/${month}`);
+  }
+
   getBooking(id:string) {
     return this.http.get<Booking>(this.URL_API + `/${id}` );
   }

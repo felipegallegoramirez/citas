@@ -1,6 +1,11 @@
-import { dashCaseToCamelCase } from '@angular/compiler/src/util';
+
 import { Component, OnInit } from '@angular/core';
-import { KeyObjectType } from 'crypto';
+import { Booking } from 'src/app/models/booking';
+import { User } from 'src/app/models/user';
+
+
+import { BookingService } from 'src/app/services/booking.service';
+import { UserService } from 'src/app/services/user.service';
 
 @Component({
   selector: 'app-time',
@@ -14,13 +19,28 @@ export class TimeComponent implements OnInit {
     dia:number,
     mes:number,
     dia2:string,
+    dia3:number,
     hora:Array<number>
   }> =[]
   mes:string=""
   hours:Array<number> =[]
 
-  constructor() { 
+  user:User=new User()
+  user_id:string=""
+
+  selectedDay:number=-1
+
+  selected:{
+    day:number,
+    month:number,
+    hour:number
+  }={
+    day:-1,
+    month:-1,
+    hour:-1
   }
+
+  constructor(private userService: UserService,private bookingService:BookingService) {}
 
   ngOnInit(): void {
     var fecha = new Date();
@@ -49,6 +69,7 @@ export class TimeComponent implements OnInit {
         dia:tempdaynumber,
         mes:tempmonth,
         dia2:this.day(tempdaytext),
+        dia3:tempdaytext,
         hora:temphour
       })
 
@@ -68,6 +89,10 @@ export class TimeComponent implements OnInit {
       temphour=[]
       temphour=[5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22];
     }
+    let id=localStorage.getItem("Profresional_id")||""
+    this.userService.getUser(id).subscribe(res=>{
+      this.user=res as User
+    })
   }
 
    diference(): number{
@@ -141,17 +166,66 @@ export class TimeComponent implements OnInit {
 
   change(x:number){
     let y=this.data[x]
+    this.selectedDay=x
     this.hours=[]
     this.hours=y.hora
     this.mes=this.month(y.mes)
+    for(let i =0;i<this.user.bloq[this.data[x].dia3].day.length;i++){
+        let index= this.hours.indexOf(this.user.bloq[this.data[x].dia3].day[i])
+        if(index!=-1){
+          this.hours.splice(index,1)
+        }
+    }
 
+    this.bookingService.getBookingDay(y.dia,y.mes).subscribe(res=>{
+      let data= res as Array<number>
+      for(let i =0;i<data.length;i++){
+        let index= this.hours.indexOf(data[i])
+        if(index!=-1){
+          this.hours.splice(index,1)
+        }
+    }
+    })
     let old=document.getElementsByClassName("select_day")[0]
     if(old){
       old.classList.remove("select_day");
     }
-
     let n = document.getElementsByClassName("days__day")[y.i]
     n.classList.add("select_day")
+  }
+
+  select(x:number){
+    this.selected={
+      day:this.data[this.selectedDay].dia,
+      month:this.data[this.selectedDay].mes,
+      hour:this.data[this.selectedDay].hora[x],
+    }
+
+    let old=document.getElementsByClassName("select_hour")[0]
+    if(old){
+      old.classList.remove("select_hour");
+    }
+    let n = document.getElementsByClassName("hours_card")[x]
+    n.classList.add("select_hour")
+  }
+
+  next(){
+    var id=localStorage.getItem("id")||""
+    var profresional=localStorage.getItem("Profresional_id")||""
+    var service=localStorage.getItem("service_id")||""
+    if(this.selected.day!=-1){
+      var booking= new Booking("",profresional,service,id,this.selected.day,this.selected.month,this.selected.hour)
+
+      //! Vulnerabilidad, hay que reconfirmar que este disponible
+      
+
+      console.log(booking)
+  
+      this.bookingService.postBooking(booking).subscribe(res=>{
+        console.log(res as Booking)
+      })
+    }
+
   }
 
 }

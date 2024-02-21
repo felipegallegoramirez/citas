@@ -18,7 +18,7 @@
       </div>
 
       <div class="hours">
-        <div *ngFor="let hour of hours" class="hours_card">
+        <div *ngFor="let hour of hours;index as i;" class="hours_card" (click)="select(i)">
             <p>{{hour}}:00</p>
         </div>
       </div>
@@ -65,7 +65,7 @@
         <div></div>
       </div>
       <div class="sumary_bottom">
-          <button>Continuar</button>
+          <button (click)="next()">Continuar</button>
         </div>
     </div>
   

@@ -1,6 +1,7 @@
 <div class="data">
     <div class="time">
       <h1>Configurar Hora</h1>
+      <button (click)="save()">Guardar</button>
       <div class="days">
         <div>
             <div *ngFor="let day of data" class="days__day" (click)="change(day.i)">
