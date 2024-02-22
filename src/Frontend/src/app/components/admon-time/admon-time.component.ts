@@ -53,7 +53,7 @@ export class AdmonTimeComponent implements OnInit {
         tempdaynumber += 1;
       }
 
-      tempdaytext += 1;
+
       if (tempdaytext > 6) {
         tempdaytext = 0;
       }
@@ -84,6 +84,7 @@ export class AdmonTimeComponent implements OnInit {
         dia2: this.day(tempdaytext),
         hora: temphour,
       });
+      tempdaytext += 1;
     }
 
     this.userService.getUser(this.user_id).subscribe(res=>{

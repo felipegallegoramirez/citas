@@ -17,7 +17,9 @@
     width: calc(150px);
     margin: 0px;
     height: 30px;
-    outline: 1px solid var(--gi);
+    box-sizing: border-box;
+    border-bottom: 1px solid var(--gi);
+    border-right: 1px solid var(--gi);
     text-align: center;
     box-sizing: border-box;
     
@@ -65,4 +67,8 @@
 
   .ocupado{
     background-color: var(--b1);
+  }
+
+  .calendar__day:last-child .calendar__hour>p,  .calendar__row>p:last-child{
+    border-right: none;
   }

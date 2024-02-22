@@ -25,7 +25,7 @@ export class TimeComponent implements OnInit {
   mes:string=""
   hours:Array<number> =[]
 
-  user:User=new User()
+  user:Array<User> =[]
   user_id:string=""
 
   selectedDay:number=-1
@@ -40,12 +40,12 @@ export class TimeComponent implements OnInit {
     hour:-1
   }
 
+
   constructor(private userService: UserService,private bookingService:BookingService) {}
 
   ngOnInit(): void {
     var fecha = new Date();
     var hora = fecha.getHours();
-
     var tempdaytext=fecha.getDay();
     var tempdaynumber=fecha.getDate();
     var tempmonth=fecha.getMonth();
@@ -54,15 +54,11 @@ export class TimeComponent implements OnInit {
     if(hora<5){
       hora=5
     }
-
     for(var i=hora+1;i<=22;i++){
       temphour.push(i)
     }
-
     this.hours=temphour
     this.mes=this.month(tempmonth)
-
-
     for(var i=0;i<=15;i++){
       this.data.push({
         i:i,
@@ -90,10 +86,20 @@ export class TimeComponent implements OnInit {
       temphour=[5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22];
     }
     let id=localStorage.getItem("Profresional_id")||""
-    this.userService.getUser(id).subscribe(res=>{
-      this.user=res as User
-    })
+
+    if(id=="any"){
+      var service=localStorage.getItem("service_id")||""
+      this.userService.getUserService(service).subscribe(res=>{
+        this.user=res as User[]
+      })
+    }else{
+      this.userService.getUser(id).subscribe(res=>{
+        this.user=[res as User]
+      })
+    }
   }
+
+
 
    diference(): number{
       var fecha = new Date();
@@ -164,21 +170,35 @@ export class TimeComponent implements OnInit {
     }
   }
 
+  bloq(x:number):Array<number>{
+    const dia3 = this.data[x].dia3;
+    let data=[0]
+    for(let i=0;i<this.user.length;i++){
+      const userBloqDay = this.user[i].bloq[dia3].day;
+        data=data.concat(userBloqDay)
+    }
+    return data
+  }
+
+
+
   change(x:number){
     let y=this.data[x]
     this.selectedDay=x
     this.hours=[]
     this.hours=y.hora
     this.mes=this.month(y.mes)
+    /*
+
     for(let i =0;i<this.user.bloq[this.data[x].dia3].day.length;i++){
         let index= this.hours.indexOf(this.user.bloq[this.data[x].dia3].day[i])
         if(index!=-1){
           this.hours.splice(index,1)
         }
     }
+    */
 
     this.bookingService.getBookingDay(y.dia,y.mes,localStorage.getItem("service_id")||"",localStorage.getItem("Profresional_id")||"").subscribe(res=>{
-      console.log(res)
       let data= res as Array<{id:string,hour:number}>
       let datan=data.map(x=>x["id"])
       let datan2=data.map(x=>x["hour"])
@@ -187,8 +207,9 @@ export class TimeComponent implements OnInit {
 
       let count=countS.size
       let ndata=Array.from(countS2)
+      let bloqdata= this.bloq(x)
+      ndata=ndata.concat(bloqdata)
       ndata=ndata.filter(x=>data.filter(y=>y.hour==x).length>=count)
-      console.log(ndata)
 
 
       for(let i =0;i<ndata.length;i++){
