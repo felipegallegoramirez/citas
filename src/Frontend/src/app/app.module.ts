@@ -22,6 +22,7 @@ const routes: Routes = [
   { path: 'Services', component: ServicesComponent },
   { path: 'AdmonTime', component: AdmonTimeComponent },
   { path: 'calendar', component: CalendarComponent },
+  { path: 'confirm', component: ConfirmComponent },
 ];
 
 

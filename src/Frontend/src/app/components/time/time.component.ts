@@ -289,8 +289,7 @@ export class TimeComponent implements OnInit {
         this.preview.dia=x?.dia+""||""
         this.preview.semana=this.dayComplete(x?.dia3||333)
         localStorage.setItem("preview",JSON.stringify(this.preview))
-
-        console.log(res as Booking)
+        window.location.replace("http://localhost:4200/#/confirm");
       })
     }
 
