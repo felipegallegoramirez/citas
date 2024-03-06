@@ -95,6 +95,7 @@ export class TimeComponent implements OnInit {
     }else{
       this.userService.getUser(id).subscribe(res=>{
         this.user=[res as User]
+        this.cargar()
       })
     }
   }
@@ -133,6 +134,33 @@ export class TimeComponent implements OnInit {
         break;
       case 6:
         return  'Sáb';
+        break;
+      default:
+        return  'XXX';
+    }
+  }
+  dayComplete(x:number):string{
+    switch (x) {
+      case 0:
+        return  'Domingo';
+        break;
+      case 1:
+        return  'Lunes';
+        break;
+      case 2:
+        return  'Martes';
+        break;
+      case 3:
+        return  'Miércoles';
+        break;
+      case 4:
+        return  'Jueves';
+        break;
+      case 5:
+        return 'Viernes';
+        break;
+      case 6:
+        return  'Sábado';
         break;
       default:
         return  'XXX';
@@ -255,10 +283,47 @@ export class TimeComponent implements OnInit {
       console.log(booking)
   
       this.bookingService.postBooking(booking).subscribe(res=>{
+        let x = this.data.find(x=> booking.day==x.dia && booking.month==x.mes)
+        this.preview.hora=booking.hour+":00"||""
+        this.preview.mes=this.month(x?.mes||333)||""
+        this.preview.dia=x?.dia+""||""
+        this.preview.semana=this.dayComplete(x?.dia3||333)
+        localStorage.setItem("preview",JSON.stringify(this.preview))
+
         console.log(res as Booking)
       })
     }
 
+  }
+
+  preview:{
+    semana:string,
+    dia:string,
+    mes:string,
+    hora:string
+    service:Array<{
+      title:string,
+      price:string
+    }>,
+    profresional:string,
+    total:string
+  }={
+    semana:"Sin seleccionar",
+    dia:"",
+    mes:"",
+    profresional:"",
+    hora:"Sin seleccionar",
+    service:[],
+    total:"0",
+  }
+
+  cargar(){
+    let x = localStorage.getItem("preview")
+    if(x){
+      this.preview=JSON.parse(x);
+    }else{
+      localStorage.setItem("preview",JSON.stringify(this.preview))
+    }
   }
 
 }

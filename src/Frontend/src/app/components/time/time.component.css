@@ -109,10 +109,11 @@
     width: 35%;
     border-radius: 5px;
     outline: 2px solid var(--g);
-    min-height: 65vh;
+    height: 65vh;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    max-width: 700px;
 }
 
 .sumary_date>div{

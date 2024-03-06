@@ -32,27 +32,27 @@
       <div class="sumary_date">
         <div>
           <span class="material-symbols-outlined"> calendar_month</span>
-          <p>Jueves 22 febrero</p>
+          <p>{{preview.semana}} {{preview.dia}} {{preview.mes}}</p>
         </div>
         <div>
           <span class="material-symbols-outlined"> Schedule</span>
-          <p>Jueves 22 febrero</p>
+          <p>{{preview.hora}}</p>
         </div>
       </div>
       <div class="sumary_cart">
-        <div class="sumary_cart_card">
+        <div  *ngFor="let service of preview.service" class="sumary_cart_card">
           <div class="cart_card_item">
-            <p>Asesoria Emprendimiento</p>
-            <p>Persona</p>
+            <p>{{service.title}}</p>
+            <p>{{preview.profresional}}</p>
           </div>
           <div class="price">
-            <p>18.000 COP</p>
+            <p>{{service.price}} COP</p>
           </div>
         </div>
       </div>
       <div class="sumary_total">
         <p>Total</p>
-        <p>18.000 COP</p>
+        <p>{{preview.total}} COP</p>
       </div>
       <div></div>
     </div>

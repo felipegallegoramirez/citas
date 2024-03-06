@@ -20,6 +20,7 @@ export class ProfesionalComponent implements OnInit {
     this.userService.getUserService(x).subscribe(res=>{
       console.log(x)
       this.profesionals=res as User[]
+      this.cargar()
     })
   }
 
@@ -45,10 +46,43 @@ export class ProfesionalComponent implements OnInit {
 
   next(){
     if(this.selected!=""&& this.selected){
+      let x= this.profesionals.find(x=>x._id==this.selected)
+      this.preview.profresional=x?.name||""
       localStorage.setItem("Profresional_id",this.selected)
+      localStorage.setItem("preview",JSON.stringify(this.preview))
       window.location.replace("http://localhost:4200/#/Time");
     }else{
       alert("Seleccione un servicio")
+    }
+  }
+
+  preview:{
+    semana:string,
+    dia:string,
+    mes:string,
+    hora:string
+    service:Array<{
+      title:string,
+      price:string
+    }>,
+    profresional:string,
+    total:string
+  }={
+    semana:"Sin seleccionar",
+    dia:"",
+    mes:"",
+    profresional:"",
+    hora:"Sin seleccionar",
+    service:[],
+    total:"0",
+  }
+
+  cargar(){
+    let x = localStorage.getItem("preview")
+    if(x){
+      this.preview=JSON.parse(x);
+    }else{
+      localStorage.setItem("preview",JSON.stringify(this.preview))
     }
   }
 

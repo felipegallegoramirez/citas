@@ -18,7 +18,9 @@ export class ServicesComponent implements OnInit {
   ngOnInit(): void {
     this.serviceService.getServices().subscribe(res=>{
       this.services=res as Service[]
+      this.cargar();
     })
+
   }
 
   select(x:number){
@@ -33,12 +35,49 @@ export class ServicesComponent implements OnInit {
 
   next(){
     if(this.selected!=""&& this.selected){
+      let x= this.services.find(x=>x._id==this.selected)
+      this.preview.service.push({
+        title:x?.name||"",
+        price:x?.price+""||""
+      })
+      this.preview.total=x?.price+""||""
+      localStorage.setItem("preview",JSON.stringify(this.preview))
       localStorage.setItem("service_id",this.selected)
       window.location.replace("http://localhost:4200/#/Profesional");
     }else{
       alert("Seleccione un servicio")
     }
   }
+  preview:{
+    semana:string,
+    dia:string,
+    mes:string,
+    hora:string
+    service:Array<{
+      title:string,
+      price:string
+    }>,
+    profresional:string,
+    total:string
+  }={
+    semana:"Sin seleccionar",
+    dia:"",
+    mes:"",
+    profresional:"",
+    hora:"Sin seleccionar",
+    service:[],
+    total:"0",
+  }
+
+  cargar(){
+    let x = localStorage.getItem("preview")
+    if(x){
+      this.preview=JSON.parse(x);
+    }else{
+      localStorage.setItem("preview",JSON.stringify(this.preview))
+    }
+  }
+
 
 
 
